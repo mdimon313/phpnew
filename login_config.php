@@ -7,7 +7,6 @@ require ("db.php");
 $email = $_POST['email'];
 $password = $_POST['password'];
 $hash = password_hash($password, PASSWORD_DEFAULT);
-// $checked = $_POST['checked'];
 $verify = $_POST["verify"];
 
 date_default_timezone_set('Asia/Dhaka');
@@ -15,10 +14,9 @@ $date = date("y-m-d h:m:t");
 
 if(empty($email) || empty($password) || empty($verify)) {
     $_SESSION['input_err']= "We were unable to log you in using those credentials. Check that you have typed your email address and password correctly.";
-    // $_SESSION["captcha_code_msg"]= 'Invalid Captcha!';
     header("location: index.php");
 } else {
-    $insert = "INSERT INTO log_info (email,password,captcha,created_at)VALUES( '$email','$hash','$verify','$date' )";
+    $insert = "INSERT INTO log_info (email,password,created_at)VALUES( '$email','$hash','$date' )";
     $res = mysqli_query($con, $insert);
     header("location: home.php");
 }
